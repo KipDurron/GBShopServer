@@ -24,6 +24,20 @@ class ProductController {
         return req.eventLoop.future(response)
     }
     
+    func getProductById(_ req: Request) throws -> EventLoopFuture<GetProductByIdResponse> {
+
+        guard let body = try? req.query.decode(GetProductByIdRequest.self) else {
+            throw Abort(.badRequest)
+        }
+        
+        print(body)
+        
+        let response = GetProductByIdResponse(result: 1,
+                                             product: Product(id: 123, name: "Название", price: 123, description: "Описание"))
+        
+        return req.eventLoop.future(response)
+    }
+    
     func login(_ req: Request) throws -> EventLoopFuture<LoginResponse> {
         guard let body = try? req.query.decode(LoginRequest.self) else {
             throw Abort(.badRequest)

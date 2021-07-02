@@ -15,15 +15,14 @@ func routes(_ app: Application) throws {
     // MARK: - User routing
     
     app.post("register", use: authController.register)
-    
     app.get("login", use: authController.login)
-    
     app.put("changeUserData", use: authController.changeUserData)
-    
     app.get("logout", use: authController.logout)
+    
     
     // MARK: - Product routing
     
     app.get("getAllProduct", use: productController.getAllProduct)
+    app.get("getProductById", use: productController.getProductById)
     
 }
