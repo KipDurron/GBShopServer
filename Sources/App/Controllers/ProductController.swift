@@ -2,25 +2,24 @@
 //  File.swift
 //  
 //
-//  Created by Илья Кадыров on 01.07.2021.
+//  Created by Илья Кадыров on 02.07.2021.
 //
 
 import Vapor
 
-class AuthController {
+class ProductController {
     
-    func register(_ req: Request) throws -> EventLoopFuture<StandartResponse> {
+    func getAllProduct(_ req: Request) throws -> EventLoopFuture<GetAllProductResponse> {
 
-        guard let body = try? req.content.decode(RegisterRequest.self) else {
+        guard let body = try? req.query.decode(GetAllProductRequest.self) else {
             throw Abort(.badRequest)
         }
         
         print(body)
         
-        let response = StandartResponse(
-            result: 1,
-            errorMessage: nil
-        )
+        let response = GetAllProductResponse(result: 1, pageNumber: 1,
+                                             products: [Product(id: 123, name: "Ноутбук", price: 45600, description: "Описание"),
+                                                        Product(id: 456, name: "Мышка", price: 1000, description: "Описание")])
         
         return req.eventLoop.future(response)
     }
@@ -31,6 +30,12 @@ class AuthController {
         }
 
         print(body)
+        
+//        do {
+//            try req.query.decode(LoginRequest.self)
+//        } catch  {
+//            print("Неожиданная ошибка: \(error).")
+//        }
         
         let response = LoginResponse(
             result: 1,
