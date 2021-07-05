@@ -4,6 +4,7 @@ func routes(_ app: Application) throws {
     
     let authController = AuthController()
     let productController = ProductController()
+    let reviewController = ReviewController()
     
     app.get { req in
         return "It works!"
@@ -24,5 +25,11 @@ func routes(_ app: Application) throws {
     
     app.get("getAllProduct", use: productController.getAllProduct)
     app.get("getProductById", use: productController.getProductById)
+    
+    // MARK: - Review routing
+    
+    app.get("getAllReview", use: reviewController.getAllReview)
+    app.post("addReview", use: reviewController.addReview)
+    app.delete("deleteReview", use: reviewController.deleteReview)
     
 }
